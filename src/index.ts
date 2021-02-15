@@ -19,11 +19,11 @@ class Server {
   private startServer(app: express.Application) {
     app.listen(config.port, () => {
       Logger.info(`
-          ################################################
-          🛡️  Server listening on port: ${config.port} 🛡️
-          🌐 http://localhost:${config.port}
-          ################################################
-        `);
+        ################################################
+        🛡️  Server listening on port: ${config.port} 🛡️
+        🌐 http://localhost:${config.port}
+        ################################################
+      `);
     });
   }
 }

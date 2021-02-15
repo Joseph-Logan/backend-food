@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { IRole } from './role'
+import { IRole } from './IRole'
 
 export interface IUser {
   role: IRole;

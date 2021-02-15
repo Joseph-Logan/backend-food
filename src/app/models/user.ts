@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { ROLE } from '../../utils/string';
 import { bcryptPassword } from '../../services/password';
-import { IUserMongoose } from '../../interfaces/user';
+import { IUserMongoose } from '../../interfaces/IUser';
 
 const User = new mongoose.Schema({
   role: {
