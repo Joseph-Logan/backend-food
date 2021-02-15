@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import Logger from '../../loaders/logger';
+import { User } from '../models'
 
 const route: Router = Router();
 
@@ -11,7 +12,7 @@ export default (app: Router) => {
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Sign In endpoint with body: %o', req.body)
       try {
-        return res.send('Sign in')
+        return res.send('sign in')
       } catch (err) {
         Logger.error('🔥 error: %o', err);
         return next(err);
@@ -24,7 +25,11 @@ export default (app: Router) => {
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Sign Up endpoint with body: %o', req.body)
       try {
-        return res.send('Sign up')
+        let data = req.body
+        let user = new User(data)
+        
+        let userRegistered = await user.save()
+        return res.json(userRegistered)
       } catch (err) {
         Logger.error('🔥 error: %o', err);
         return next(err);

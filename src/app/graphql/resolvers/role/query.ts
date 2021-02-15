@@ -1,10 +1,15 @@
 import { Role } from '../../../models'
 import { IResolvers } from 'graphql-tools';
+import Logger from '../../../../loaders/logger';
 
 const query: IResolvers = {
   Query: {
     roles: async () => {
-      return await Role.find()
+      try {
+        return await Role.find()
+      } catch (err) {
+        Logger.error('Error in %o: ', err)
+      }
     }
   }
 }

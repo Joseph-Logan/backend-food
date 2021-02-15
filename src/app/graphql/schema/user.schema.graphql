@@ -1,8 +1,26 @@
+scalar Date
+
 "Consultas de la información de los usuarios. Solo lectura"
 type Query {
-  users: User!
+  users: [User]
+}
+
+type Role {
+  _id: ID!
+  name: String!
+  createdAt: Date!
+  updatedAt: Date
 }
 
 type User {
+  role: Role!
   name: String!
+  firstSurname: String!
+  secondSurname: String!
+  dni: String!
+  password: String!
+  email: String!
+  isEnabled: Boolean!
+  createdAt: Date
+  updatedAt: Date
 }
