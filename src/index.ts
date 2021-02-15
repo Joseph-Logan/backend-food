@@ -1,13 +1,14 @@
 import express from 'express';
 import Logger from './loaders/logger'
 import config from './config';
-
 class Server {
   private app: express.Application;
 
   constructor () {
     this.app = express();
+  }
 
+  public initServer() {
     new Promise(resolve => {
       resolve(require('./loaders').default({expressApp: this.app}))
     }).then(() => {
@@ -27,4 +28,4 @@ class Server {
   }
 }
 
-new Server();
+new Server().initServer();

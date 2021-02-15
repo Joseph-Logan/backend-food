@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-// import routes from '../api';
-// import config from '../config';
+import routes from '../app';
+import config from '../config';
 
 export default async ({ app }: { app: express.Application }) => {
 
@@ -16,10 +16,11 @@ export default async ({ app }: { app: express.Application }) => {
 
   // Middleware that transforms the raw string of req.body into json
   app.use(express.json())
-
+  // Load API routes
+  app.use(config.api.prefix, routes());
 
   /// catch 404 and forward to error handler
-  app.use((_req, _res, next) => {
+  app.use('*', (_req, _res, next) => {
     const err: any = new Error('Not Found');
     err['status'] = 404;
     next(err);
