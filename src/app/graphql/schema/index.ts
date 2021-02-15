@@ -1,17 +1,24 @@
 import 'graphql-import-node';
 import { GraphQLSchema } from 'graphql';
-import { makeExecutableSchema } from 'graphql-tools';
+import { makeExecutableSchema, stitchSchemas } from 'graphql-tools';
 // SCHEMAS
-import typeDefsUser from './users.schema.graphql'
-
+import typeDefsRole from './role.schema.graphql';
+import typeDefsUser from './user.schema.graphql';
 // RESOLVERS
-import { userResolvers } from '../resolvers'
+import { roleResolvers, userResolvers } from '../resolvers';
 
-const userSchema: GraphQLSchema = makeExecutableSchema({
+const schemaRole: GraphQLSchema = makeExecutableSchema({
+  typeDefs: typeDefsRole,
+  resolvers: roleResolvers,
+});
+
+const schemaUser: GraphQLSchema = makeExecutableSchema({
   typeDefs: typeDefsUser,
-  resolvers: userResolvers
-})
+  resolvers: userResolvers,
+});
 
-export {
-  userSchema,
-}
+const globalSchema = stitchSchemas({
+  subschemas: [schemaUser, schemaRole],
+});
+
+export { globalSchema };

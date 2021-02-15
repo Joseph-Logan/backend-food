@@ -1,0 +1,12 @@
+scalar Date
+
+type Role {
+  _id: ID!
+  name: String!
+  createdAt: Date!
+  updatedAt: Date
+}
+
+type Query {
+  roles: [Role]
+}

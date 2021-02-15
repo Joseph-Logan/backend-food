@@ -11,7 +11,7 @@ export default (app: Router) => {
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Sign In endpoint with body: %o', req.body)
       try {
-
+        return res.send('Sign in')
       } catch (err) {
         Logger.error('🔥 error: %o', err);
         return next(err);
@@ -24,7 +24,7 @@ export default (app: Router) => {
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Sign Up endpoint with body: %o', req.body)
       try {
-
+        return res.send('Sign up')
       } catch (err) {
         Logger.error('🔥 error: %o', err);
         return next(err);

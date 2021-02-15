@@ -4,7 +4,7 @@ import mongooseLoader from './mongoose-loader'
 
 export default async ({ expressApp }: {expressApp: any}) => {
 
-  // await mongooseLoader()
+  await mongooseLoader()
   Logger.info('✌️ DB loaded and connected!');
 
   await expressLoader({ app: expressApp });

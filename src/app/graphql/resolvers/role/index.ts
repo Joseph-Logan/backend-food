@@ -1,12 +1,13 @@
+  
 import { IResolvers } from 'graphql-tools';
 import query from './query';
 import type from './type';
 import mutation from './mutation';
 
-const userResolvers : IResolvers = {
+const roleResolvers : IResolvers = {
   ...query,
   ...mutation,
   ...type
 }
 
-export default userResolvers;
+export default roleResolvers;
