@@ -9,11 +9,17 @@ const route: Router = Router();
 export default (app: Router) => {
   // GET INSTANCE OF AUTH_CONTROLLER
   const authController = new AuthController();
+  const ROUTE = {
+    prefixRoute: '/auth',
+    signIn: '/sign-in',
+    signUp: '/sign-up',
+    logOut: '/logout',
+  }
 
-  app.use('/auth', route);
+  app.use(ROUTE.prefixRoute, route);
 
   route.post(
-    '/sign-in',
+    ROUTE.signIn,
     signInValidator,
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Sign In endpoint with body: %o', req.body)
@@ -30,7 +36,7 @@ export default (app: Router) => {
   )
 
   route.post(
-    '/sign-up',
+    ROUTE.signUp,
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Sign Up endpoint with body: %o', req.body)
       try {
@@ -47,7 +53,7 @@ export default (app: Router) => {
   )
 
   route.post(
-    '/logout',
+    ROUTE.logOut,
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Logout endpoint with body: %o')
       try {
