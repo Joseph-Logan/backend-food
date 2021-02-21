@@ -5,10 +5,15 @@ const ROLE = 'Role'
 const MEMBERSHIP = 'Membership'
 const CATEGORY = 'Category'
 
+// DEFAULT MESSAGES
+const INVALID_CREDENTIALS = 'Your credentials are invalids'
+
 export {
   PROJECT,
   USER,
   ROLE,
   MEMBERSHIP,
-  CATEGORY
+  CATEGORY,
+  // Messages
+  INVALID_CREDENTIALS
 }

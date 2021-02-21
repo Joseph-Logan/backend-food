@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config();
+
 export default {
 	/**
 	 * Your favorite port
@@ -12,7 +15,7 @@ export default {
 	/**
 	 * Your secret sauce
 	 */
-	jwtSecret: process.env.JWT_SECRET,
+	SECRET_KEY: process.env.SECRET_KEY || '',
 
 	/**
 	 * Used by winston logger

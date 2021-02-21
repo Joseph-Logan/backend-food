@@ -4,7 +4,7 @@ const validatePassword = async (passwordFromUser:string, passwordStoraged:string
   try {
     return bcrypt.compareSync(passwordFromUser, passwordStoraged)
   } catch (err) {
-    throw 'Opp has ocurred error, try again'
+    throw new Error('Opp has ocurred error, try again')
   }
 }
 
@@ -24,7 +24,8 @@ const checkPassword = async (data: { hasOwnProperty: (arg0: string) => any }) =>
   return false
 }
 
-const deletePasswordInObject = async (data: { _doc: any }) => {
+
+const deletePasswordInObject = async (data: any) => {
   let doc = {
     ...data._doc
   }

@@ -20,7 +20,7 @@ export default async ({ app }: { app: express.Application }) => {
   app.use(config.api.prefix, routes());
 
   /// catch 404 and forward to error handler
-  app.use('*', (_req, _res, next) => {
+  app.use((_req, _res, next) => {
     const err: any = new Error('Not Found');
     err['status'] = 404;
     next(err);

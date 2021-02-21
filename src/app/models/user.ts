@@ -45,6 +45,11 @@ const User = new mongoose.Schema({
     min: 6,
     unique: true
   },
+  avatar: {
+    type: String,
+    required: false,
+    default: null
+  },
   isEnabled: {
     type: Boolean,
     default: true
