@@ -1,5 +1,5 @@
 import { connection, connect } from 'mongoose'
-import config from '../config'
+import config from '@config'
 
 const initDb = async () => {
   try {

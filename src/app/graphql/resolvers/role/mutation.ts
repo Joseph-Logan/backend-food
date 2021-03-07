@@ -1,6 +1,6 @@
-import { Models } from '../../../models'
+import { Models } from '@app/models'
 import { IResolvers } from 'graphql-tools';
-import Logger from '../../../../loaders/logger';
+import Logger from '@loaders/logger';
 
 const mutation: IResolvers = {
   Mutation: {

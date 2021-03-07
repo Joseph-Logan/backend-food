@@ -1,7 +1,7 @@
-import { Models } from '../models'
-import { validatePassword, deletePasswordInObject } from '../../services/password'
-import { INVALID_CREDENTIALS } from '../../utils/string'
-import { createToken } from '../../services/handle-token'
+import { Models } from '@app/models'
+import { validatePassword, deletePasswordInObject } from '@services/password'
+import { INVALID_CREDENTIALS } from '@utils/string'
+import { createToken } from '@services/handle-token'
 
 class AuthController {
 

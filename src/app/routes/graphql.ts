@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { validateActiveAuth } from '../../services/handle-token'
+import { validateActiveAuth } from '@services/handle-token'
 // import middlewares from '../middlewares';
 import { graphqlHTTP } from 'express-graphql';
 
 /** SCHEMA AND RESOLVERS */
-import { globalSchema } from '../graphql/schema'
+import { globalSchema } from '@app/graphql/schema'
 
 const route: Router = Router();
 export default (app: Router) => {

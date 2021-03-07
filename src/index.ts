@@ -1,6 +1,6 @@
 import express from 'express';
-import Logger from './loaders/logger'
-import config from './config';
+import Logger from '@loaders/logger'
+import config from '@config';
 class Server {
   private app: express.Application;
 

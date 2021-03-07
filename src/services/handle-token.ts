@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from 'express'
 import { verify, sign } from 'jsonwebtoken'
-import { handlerValidator } from '../app/validator'
-import config from '../config'
+import { handlerValidator } from '@app/validator'
+import config from '@config'
 
-import { FORBIDEN } from '../utils/codes'
+import { FORBIDEN } from '@utils/codes'
 
 const validateActiveAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -5,7 +5,7 @@ import { makeExecutableSchema, stitchSchemas } from 'graphql-tools';
 import typeDefsRole from './role.schema.graphql';
 import typeDefsUser from './user.schema.graphql';
 // RESOLVERS
-import { roleResolvers, userResolvers } from '../resolvers';
+import { roleResolvers, userResolvers } from '@app/graphql/resolvers';
 
 const schemaRole: GraphQLSchema = makeExecutableSchema({
   typeDefs: typeDefsRole,

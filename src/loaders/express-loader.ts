@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import routes from '../app';
-import config from '../config';
+import routes from '@app';
+import config from '@config';
 
 export default async ({ app }: { app: express.Application }) => {
 

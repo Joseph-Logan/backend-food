@@ -1,8 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import Logger from '../../loaders/logger';
-import { Models } from '../models'
-import { signInValidator, handlerValidator } from '../validator'
-import { AuthController } from '../controller'
+import Logger from '@loaders/logger';
+import { Models } from '@app/models'
+import { signInValidator, handlerValidator } from '@app/validator'
+import { AuthController } from '@app/controller'
+import { SERVER_ERROR, BAD_REQUEST } from '@utils/codes'
 
 const route: Router = Router();
 
@@ -21,7 +22,7 @@ export default (app: Router) => {
   route.post(
     ROUTE.signIn,
     signInValidator,
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       Logger.debug('Calling Sign In endpoint with body: %o', req.body)
       try {
         let { email, password } = req.body
@@ -30,7 +31,7 @@ export default (app: Router) => {
         return res.json(response)
       } catch (err) {
         Logger.error('🔥 error: %o', err);
-        return res.status(500).json(await handlerValidator.serializeErrors(err))
+        return res.status(SERVER_ERROR).json(await handlerValidator.serializeErrors(err))
       }
     }
   )
@@ -57,7 +58,7 @@ export default (app: Router) => {
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Logout endpoint with body: %o')
       try {
-        return res.status(200).end();
+        return res.end();
       } catch (err) {
         Logger.error('🔥 error: %o', err);
         return next(err);
@@ -78,11 +79,11 @@ export default (app: Router) => {
           field: item.context.key
         })
       })
-      return res.status(400).json({
+      return res.status(BAD_REQUEST).json({
         errors
       })
-    } 
+    }
     //otherwise, it's probably a server-side problem.  
-    return res.status(500).send(error)
+    return res.status(SERVER_ERROR).send(error)
   });
 }
