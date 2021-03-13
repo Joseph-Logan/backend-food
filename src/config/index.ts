@@ -46,6 +46,9 @@ export default {
 	api: {
 		prefix: '/api',
 	},
+
+	//
+	roleClientDefault: process.env.CLIENT_ROLE
 	/**
 	 * Mailgun email credentials
 	 */

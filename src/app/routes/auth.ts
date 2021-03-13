@@ -1,26 +1,24 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import Logger from '@loaders/logger';
-import { Models } from '@app/models'
-import { signInValidator, handlerValidator } from '@app/validator'
+import { signInValidator, signUpValidator, handlerValidator } from '@app/validator'
 import { AuthController } from '@app/controller'
 import { SERVER_ERROR, BAD_REQUEST } from '@utils/codes'
+import { ROUTE_AUTH } from '@utils/rest-routes'
+import { validateActiveAuth } from '@services/handle-token'
 
 const route: Router = Router();
 
 export default (app: Router) => {
   // GET INSTANCE OF AUTH_CONTROLLER
   const authController = new AuthController();
-  const ROUTE = {
-    prefixRoute: '/auth',
-    signIn: '/sign-in',
-    signUp: '/sign-up',
-    logOut: '/logout',
-  }
 
-  app.use(ROUTE.prefixRoute, route);
+  app.use(ROUTE_AUTH.prefixRoute, route);
 
+  // Sign In action receive 2 params
+  // Create a rest routes prefix 
+  // Handle validator middleware to validate content of request 
   route.post(
-    ROUTE.signIn,
+    ROUTE_AUTH.signIn,
     signInValidator,
     async (req: Request, res: Response) => {
       Logger.debug('Calling Sign In endpoint with body: %o', req.body)
@@ -35,26 +33,29 @@ export default (app: Router) => {
       }
     }
   )
-
+  
+  // Sign Up to register any type of user
+  // Handle validator middleware to validate content of request 
   route.post(
-    ROUTE.signUp,
-    async (req: Request, res: Response, next: NextFunction) => {
+    ROUTE_AUTH.signUp,
+    signUpValidator,
+    async (req: Request, res: Response) => {
       Logger.debug('Calling Sign Up endpoint with body: %o', req.body)
       try {
         let data = req.body
-        let user = new Models.User(data)
-        
-        let userRegistered = await user.save()
-        return res.json(userRegistered)
+        let response = await authController.signUp(data)
+
+        return res.json(response)
       } catch (err) {
         Logger.error('🔥 error: %o', err);
-        return next(err);
+        return res.status(SERVER_ERROR).json(await handlerValidator.serializeErrors(err))
       }
     }
   )
 
   route.post(
-    ROUTE.logOut,
+    ROUTE_AUTH.logOut,
+    validateActiveAuth,
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Logout endpoint with body: %o')
       try {

@@ -12,17 +12,20 @@ class AuthController {
    * @returns Token Session, User
    */
   public async signIn({ email, password }: any) {
-    try {
-      let validateCredentials: boolean = await this.validateCredentials(email, password)
-
-      if (validateCredentials) {
-        return this.getCurrentUserAuthenticated()
-      }
-
+    let validateCredentials: boolean = await this.validateCredentials(email, password)
+    if (!validateCredentials)
       throw INVALID_CREDENTIALS
-    } catch (error) {
-      throw error
-    }
+
+    return this.getCurrentUserAuthenticated()
+  }
+
+  /**
+   * @param data { name, firstSurname, secondSurname, dni, email, password, role_name }
+   * @returns user
+   */
+  public async signUp (data: any) {
+    let user = new Models.User(data)
+    return await user.save()
   }
 
   /**
@@ -43,12 +46,17 @@ class AuthController {
   private async findUserByEmail (email: string) {
     let user = await Models.User.find({ email, isEnabled: true }).populate('role')
 
-    if (user.length === this.firstRecord) {
+    if (user.length === this.firstRecord)
       throw INVALID_CREDENTIALS
-    }
+
     return user[this.firstRecord]
   }
 
+  /**
+   * Delete field password from user object
+   * create token based on user got it in authentication process
+   * @returns Object { user with token }
+   */
   private async getCurrentUserAuthenticated () {
     let data = AuthController.user
     let user = await deletePasswordInObject(data)

@@ -1,7 +1,8 @@
 import { handlerValidator } from './handler-validator'
-import { signInValidator } from './auth'
+import { signInValidator, signUpValidator } from './auth'
 
 export {
   handlerValidator,
-  signInValidator
+  signInValidator,
+  signUpValidator
 }
