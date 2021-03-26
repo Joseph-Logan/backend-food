@@ -3,7 +3,7 @@ import Logger from '@loaders/logger';
 import { signInValidator, signUpValidator, handlerValidator } from '@app/validator'
 import { AuthController } from '@app/controller'
 import { SERVER_ERROR, BAD_REQUEST } from '@utils/codes'
-import { ROUTE_AUTH } from '@utils/rest-routes'
+import { ROUTE_AUTH } from '@utils/restRoutes'
 import { tokenMiddleware } from '@app/middlewares'
 
 const route: Router = Router();
