@@ -4,8 +4,13 @@ import { makeExecutableSchema, stitchSchemas } from 'graphql-tools';
 // SCHEMAS
 import typeDefsRole from './role.schema.graphql';
 import typeDefsUser from './user.schema.graphql';
+import typeDefsCategory from './category.schema.graphql';
 // RESOLVERS
-import { roleResolvers, userResolvers } from '@app/graphql/resolvers';
+import { 
+  roleResolvers, 
+  userResolvers, 
+  categoryResolvers 
+} from '@app/graphql/resolvers';
 
 const schemaRole: GraphQLSchema = makeExecutableSchema({
   typeDefs: typeDefsRole,
@@ -17,8 +22,17 @@ const schemaUser: GraphQLSchema = makeExecutableSchema({
   resolvers: userResolvers,
 });
 
+const schemaCategory: GraphQLSchema = makeExecutableSchema({
+  typeDefs: typeDefsCategory,
+  resolvers: categoryResolvers
+})
+
 const globalSchema = stitchSchemas({
-  subschemas: [schemaUser, schemaRole],
+  subschemas: [
+    schemaUser, 
+    schemaRole,
+    schemaCategory
+  ],
 });
 
 export { globalSchema };

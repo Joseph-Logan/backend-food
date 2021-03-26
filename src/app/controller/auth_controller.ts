@@ -1,7 +1,7 @@
 import { Models } from '@app/models'
 import { validatePassword, deletePasswordInObject } from '@services/password'
 import { INVALID_CREDENTIALS } from '@utils/string'
-import { createToken } from '@services/handle-token'
+import { tokenMiddleware } from '@app/middlewares'
 
 class AuthController {
 
@@ -26,6 +26,16 @@ class AuthController {
   public async signUp (data: any) {
     let user = new Models.User(data)
     return await user.save()
+  }
+
+  /**
+   * @param token { decript this token and get id to update last sign in and put token in black list jwt }
+   */
+  public async logOut (token: any) {
+    let { payload }: any = tokenMiddleware.decryptToken(token)
+
+    await this.updateLastSignIn(payload.data._id)
+    return payload.data
   }
 
   /**
@@ -63,8 +73,18 @@ class AuthController {
 
     return {
       user,
-      token: await createToken(user)
+      token: await tokenMiddleware.createToken(user)
     }
+  }
+
+  /**
+   * update last sign in of user when they logOut of app
+   * @param _id 
+   */
+  private async updateLastSignIn (_id: string) {
+    return await Models.User.findByIdAndUpdate(_id, {
+      last_sign_in: new Date()
+    })
   }
 }
 

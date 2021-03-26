@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ROLE } from '@utils/string';
+import { ROLE, USER } from '@utils/string';
 import { bcryptPassword } from '@services/password';
 import { IUserMongoose } from '@interfaces/IUser';
 
@@ -54,6 +54,10 @@ const User = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  last_sign_in: {
+    type: Date,
+    default: new Date()
+  },
   createdAt: {
     type: Date,
     default: new Date()
@@ -77,4 +81,4 @@ User.pre<IUserMongoose>('save', async function (next) {
   }
 })
 
-export default mongoose.model('users', User)
+export default mongoose.model(USER, User)

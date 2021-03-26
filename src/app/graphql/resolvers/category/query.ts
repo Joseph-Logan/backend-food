@@ -4,12 +4,11 @@ import Logger from '@loaders/logger';
 
 const query: IResolvers = {
   Query: {
-    roles: async () => {
+    categories: async () => {
       try {
-        return await Models.Role.find()
+        return await Models.Category.find()
       } catch (err) {
         Logger.error('Error in %o: ', err)
-        throw err
       }
     }
   }

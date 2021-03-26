@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from 'express'
-import { verify, sign } from 'jsonwebtoken'
+import { verify, sign, decode } from 'jsonwebtoken'
 import { handlerValidator } from '@app/validator'
 import config from '@config'
 
@@ -37,7 +37,21 @@ const createToken = async (data: any) => {
   }
 }
 
+const decryptToken = (token: any) => {
+  try {
+    let data = decode(token, {
+      complete: true
+    })
+
+    return data
+  } catch (err) {
+    throw err
+  }
+}
+
 export {
   validateActiveAuth,
-  createToken
+  createToken,
+  decryptToken,
+  isValidToken
 }

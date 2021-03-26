@@ -1,0 +1,25 @@
+scalar Date
+
+type Category {
+  _id: ID!
+  name: String!
+  createdAt: Date!
+  updatedAt: Date
+}
+
+"Receive data from FE and send to mutation"
+input CategoryInput {
+  name: String!
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Query {
+  "Get all categories"
+  categories: [Category]
+}
+
+type Mutation {
+  "Store Category"
+  storeCategory(category: CategoryInput): Category!
+}

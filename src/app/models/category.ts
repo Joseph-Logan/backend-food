@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { ROLE } from '@utils/string';
+import { CATEGORY } from '@utils/string';
 
-const Role = new mongoose.Schema({
+const Category = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -18,4 +18,4 @@ const Role = new mongoose.Schema({
   }
 })
 
-export default mongoose.model(ROLE, Role)
+export default mongoose.model(CATEGORY, Category)

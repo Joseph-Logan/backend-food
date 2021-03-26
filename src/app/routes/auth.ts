@@ -4,7 +4,7 @@ import { signInValidator, signUpValidator, handlerValidator } from '@app/validat
 import { AuthController } from '@app/controller'
 import { SERVER_ERROR, BAD_REQUEST } from '@utils/codes'
 import { ROUTE_AUTH } from '@utils/rest-routes'
-import { validateActiveAuth } from '@services/handle-token'
+import { tokenMiddleware } from '@app/middlewares'
 
 const route: Router = Router();
 
@@ -55,10 +55,12 @@ export default (app: Router) => {
 
   route.post(
     ROUTE_AUTH.logOut,
-    validateActiveAuth,
+    tokenMiddleware.validateActiveAuth,
     async (req: Request, res: Response, next: NextFunction) => {
       Logger.debug('Calling Logout endpoint with body: %o')
       try {
+        const token = await tokenMiddleware.isValidToken(req)
+        await authController.logOut(token)
         return res.end();
       } catch (err) {
         Logger.error('🔥 error: %o', err);

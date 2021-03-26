@@ -2,11 +2,12 @@ import { Models } from '@app/models'
 import { IResolvers } from 'graphql-tools';
 import Logger from '@loaders/logger';
 
-const query: IResolvers = {
-  Query: {
-    roles: async () => {
+const mutation: IResolvers = {
+  Mutation: {
+    storeCategory: async (_: void, {category}) => {
       try {
-        return await Models.Role.find()
+        let categoryInstance = new Models.Category(category);
+        return await categoryInstance.save()
       } catch (err) {
         Logger.error('Error in %o: ', err)
         throw err
@@ -15,4 +16,4 @@ const query: IResolvers = {
   }
 }
 
-export default query;
+export default mutation

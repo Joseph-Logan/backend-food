@@ -1,6 +1,6 @@
 import Logger from './logger';
-import expressLoader from './express-loader'
-import mongooseLoader from './mongoose-loader'
+import expressLoader from './expressLoader'
+import mongooseLoader from './mongooseLoader'
 
 export default async ({ expressApp }: {expressApp: any}) => {
 

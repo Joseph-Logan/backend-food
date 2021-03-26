@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validateActiveAuth } from '@services/handle-token'
+import { tokenMiddleware } from '@app/middlewares'
 // import middlewares from '../middlewares';
 import { graphqlHTTP } from 'express-graphql';
 
@@ -13,7 +13,7 @@ export default (app: Router) => {
   // set routes and set middlewares, required user logged
   
   route.use(
-    validateActiveAuth,
+    tokenMiddleware.validateActiveAuth,
     graphqlHTTP({
       schema: globalSchema,
       graphiql: true,
