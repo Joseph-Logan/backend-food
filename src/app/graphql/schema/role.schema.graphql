@@ -7,17 +7,24 @@ type Role {
   updatedAt: Date
 }
 
+input RoleInput {
+  name: String!
+  createdAt: Date
+  updatedAt: Date
+}
+
 type Query {
+  "Get all roles"
   roles: [Role]
+  "Get specific role by id"
+  role(_id: ID!): Role
 }
 
 type Mutation {
   "Store Role"
   storeRole(role: RoleInput): Role!
-}
-
-input RoleInput {
-  name: String!
-  createdAt: Date
-  updatedAt: Date
+  "Update role"
+  updateRole(_id: ID!, role: RoleInput): Role!
+  "Delete role"
+  deleteRole(_id: ID!): Role
 }

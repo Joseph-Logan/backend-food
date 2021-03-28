@@ -11,6 +11,14 @@ const query: IResolvers = {
         Logger.error('Error in %o: ', err)
         throw err
       }
+    },
+    role: async (_: void, {_id}) => {
+      try {
+        return await Models.Role.findById(_id)
+      } catch (err) {
+        Logger.error('Error in %o: ', err)
+        throw err
+      }
     }
   }
 }

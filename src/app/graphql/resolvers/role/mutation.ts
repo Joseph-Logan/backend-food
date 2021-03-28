@@ -13,6 +13,24 @@ const mutation: IResolvers = {
         throw err;
       }
     },
+    updateRole: async (_: void, {_id, role}) => {
+      try {
+        return await Models.Role.findByIdAndUpdate(_id, role, {
+          new: true
+        })
+      } catch (err) {
+        Logger.error('Error in %o: ', err);
+        throw err
+      }
+    },
+    deleteRole: async (_: void, {_id}) => {
+      try {
+        return await Models.Role.findByIdAndDelete(_id)
+      } catch (err) {
+        Logger.error('Error in %o: ', err);
+        throw err
+      }
+    }
   },
 };
 
