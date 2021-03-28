@@ -17,9 +17,15 @@ input CategoryInput {
 type Query {
   "Get all categories"
   categories: [Category]
+  "Get category by id"
+  category(_id: ID!): Category
 }
 
 type Mutation {
   "Store Category"
   storeCategory(category: CategoryInput): Category!
+  "Update category"
+  updateCategory(_id: ID!, category: CategoryInput!): Category
+  "delete category"
+  deleteCategory(_id: ID!): Category
 }

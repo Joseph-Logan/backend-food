@@ -24,7 +24,7 @@ type Mutation {
   "Store Role"
   storeRole(role: RoleInput): Role!
   "Update role"
-  updateRole(_id: ID!, role: RoleInput): Role!
+  updateRole(_id: ID!, role: RoleInput!): Role
   "Delete role"
   deleteRole(_id: ID!): Role
 }
